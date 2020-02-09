@@ -31,7 +31,7 @@ namespace Cache.Models
                         CaliberGauge = "5.56mm NATO",
                         DateAcquired = DateTime.Parse("2019-04-01"),
                         Cost = 1500.00M,
-                        PurchaseLocation = "",
+                        PurchaseLocation = "Palmetto State Armory",
                         SoldTransferredTo = "",
                         Notes = ""
                     },
@@ -45,7 +45,7 @@ namespace Cache.Models
                         CaliberGauge = "5.56mm NATO",
                         DateAcquired = DateTime.Parse("2019-09-01"),
                         Cost = 1999.99M,
-                        PurchaseLocation = "",
+                        PurchaseLocation = "Palmetto State Armory",
                         SoldTransferredTo = "",
                         Notes = ""
                     }

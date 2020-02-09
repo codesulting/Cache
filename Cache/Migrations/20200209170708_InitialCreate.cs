@@ -13,14 +13,14 @@ namespace Cache.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ManufacturerImporter = table.Column<string>(nullable: true),
-                    Model = table.Column<string>(nullable: true),
-                    SerialNumber = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
+                    ManufacturerImporter = table.Column<string>(nullable: false),
+                    Model = table.Column<string>(nullable: false),
+                    SerialNumber = table.Column<string>(nullable: false),
+                    Type = table.Column<string>(nullable: false),
                     CaliberGauge = table.Column<string>(nullable: true),
                     DateAcquired = table.Column<DateTime>(nullable: false),
                     Cost = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    PurchaseLocation = table.Column<string>(nullable: true),
+                    PurchaseLocation = table.Column<string>(nullable: false),
                     SoldTransferredTo = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true)
                 },

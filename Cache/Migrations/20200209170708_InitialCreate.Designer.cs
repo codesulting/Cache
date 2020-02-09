@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cache.Migrations
 {
     [DbContext(typeof(CacheContext))]
-    [Migration("20200209165058_InitialCreate")]
+    [Migration("20200209170708_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,24 +34,29 @@ namespace Cache.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ManufacturerImporter")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PurchaseLocation")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SerialNumber")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SoldTransferredTo")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
