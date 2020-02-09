@@ -26,7 +26,7 @@ namespace Cache.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Cost")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<DateTime>("DateAcquired")
                         .HasColumnType("TEXT");
@@ -35,6 +35,9 @@ namespace Cache.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Model")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PurchaseLocation")

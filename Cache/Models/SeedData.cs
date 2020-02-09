@@ -32,7 +32,8 @@ namespace Cache.Models
                         DateAcquired = DateTime.Parse("2019-04-01"),
                         Cost = 1500.00M,
                         PurchaseLocation = "",
-                        SoldTransferredTo = ""
+                        SoldTransferredTo = "",
+                        Notes = ""
                     },
 
                     new Firearm
@@ -45,7 +46,8 @@ namespace Cache.Models
                         DateAcquired = DateTime.Parse("2019-09-01"),
                         Cost = 1999.99M,
                         PurchaseLocation = "",
-                        SoldTransferredTo = ""
+                        SoldTransferredTo = "",
+                        Notes = ""
                     }
                 );
                 context.SaveChanges();

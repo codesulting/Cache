@@ -33,5 +33,7 @@ namespace Cache.Models
 
         [Display(Name = "Sold/Transferred To")]
         public string SoldTransferredTo { get; set; }
+
+        public string Notes { get; set; }
     }
 }

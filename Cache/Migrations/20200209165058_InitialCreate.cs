@@ -19,9 +19,10 @@ namespace Cache.Migrations
                     Type = table.Column<string>(nullable: true),
                     CaliberGauge = table.Column<string>(nullable: true),
                     DateAcquired = table.Column<DateTime>(nullable: false),
-                    Cost = table.Column<decimal>(nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     PurchaseLocation = table.Column<string>(nullable: true),
-                    SoldTransferredTo = table.Column<string>(nullable: true)
+                    SoldTransferredTo = table.Column<string>(nullable: true),
+                    Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

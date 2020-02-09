@@ -60,6 +60,11 @@
                 <span asp-validation-for="Firearm.SoldTransferredTo" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Firearm.Notes" class="control-label"></label>
+                <input asp-for="Firearm.Notes" class="form-control" />
+                <span asp-validation-for="Firearm.Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
