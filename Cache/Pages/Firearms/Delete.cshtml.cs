@@ -31,7 +31,7 @@ namespace Cache.Pages.Firearms
                 return NotFound();
             }
 
-            Firearm = await _context.Firearm.FirstOrDefaultAsync(m => m.ID == id);
+            Firearm = await _context.Firearm.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Firearm == null)
             {

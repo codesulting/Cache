@@ -32,7 +32,7 @@ namespace Cache.Pages.Firearms
                 return NotFound();
             }
 
-            Firearm = await _context.Firearm.FirstOrDefaultAsync(m => m.ID == id);
+            Firearm = await _context.Firearm.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Firearm == null)
             {
@@ -58,7 +58,7 @@ namespace Cache.Pages.Firearms
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FirearmExists(Firearm.ID))
+                if (!FirearmExists(Firearm.Id))
                 {
                     return NotFound();
                 }
@@ -73,7 +73,7 @@ namespace Cache.Pages.Firearms
 
         private bool FirearmExists(int id)
         {
-            return _context.Firearm.Any(e => e.ID == id);
+            return _context.Firearm.Any(e => e.Id == id);
         }
     }
 }

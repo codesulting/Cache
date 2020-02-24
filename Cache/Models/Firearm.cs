@@ -6,7 +6,7 @@ namespace Cache.Models
 {
     public class Firearm
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required,
         Display(Name = "Manufacturer/Importer")]
