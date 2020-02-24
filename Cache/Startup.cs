@@ -36,11 +36,18 @@ namespace Cache
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<CacheContext>();
 
-            services.AddRazorPages()
-                .AddRazorPagesOptions(options =>
+            IMvcBuilder builder = services.AddRazorPages();
+
+            builder.AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AddPageRoute("/Firearms/Index", "");
                 });
+#if DEBUG
+            if (Environment.IsDevelopment())
+            {
+                builder.AddRazorRuntimeCompilation();
+            }
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
