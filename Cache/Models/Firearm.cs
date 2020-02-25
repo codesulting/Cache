@@ -22,7 +22,7 @@ namespace Cache.Models
         public string SerialNumber { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public FirearmType Type { get; set; }
 
         [Display(Name = "Caliber/Gauge")]
         public string CaliberGauge { get; set; }

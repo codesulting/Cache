@@ -17,7 +17,7 @@ namespace Cache.Data.Migrations
                     ManufacturerImporter = table.Column<string>(nullable: false),
                     Model = table.Column<string>(nullable: false),
                     SerialNumber = table.Column<string>(nullable: false),
-                    Type = table.Column<string>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
                     CaliberGauge = table.Column<string>(nullable: true),
                     DateAcquired = table.Column<DateTime>(nullable: false),
                     Cost = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),

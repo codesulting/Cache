@@ -36,7 +36,8 @@ namespace Cache.Pages.Firearms
             var currentUserId = UserManager.GetUserId(User);
 
             Firearm = await Context.Firearm.Where(
-                f => f.UserId == currentUserId).FirstOrDefaultAsync(m => m.Id == id);
+                f => f.Id == id && f.UserId == UserManager.GetUserId(User)
+            ).FirstOrDefaultAsync();
 
             if (Firearm == null)
             {
@@ -54,7 +55,9 @@ namespace Cache.Pages.Firearms
                 return NotFound();
             }
 
-            Firearm = await Context.Firearm.FindAsync(id);
+            Firearm = await Context.Firearm.Where(
+                f => f.Id == id && f.UserId == UserManager.GetUserId(User)
+            ).FirstOrDefaultAsync();
 
             if (Firearm != null)
             {

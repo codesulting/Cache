@@ -10,7 +10,6 @@ namespace Cache.Pages
     {
 
         protected ApplicationDbContext Context { get; }
-        protected IAuthorizationService AuthorizationService { get; }
         protected UserManager<IdentityUser> UserManager { get; }
 
         public BasePageModel(

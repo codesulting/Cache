@@ -27,10 +27,9 @@ namespace Cache.Pages.Firearms
         public async Task OnGetAsync()
         {
 
-            var currentUserId = UserManager.GetUserId(User);
-
             Firearm = await Context.Firearm.Where(
-                f => f.UserId == currentUserId).ToListAsync();
+                f => f.UserId == UserManager.GetUserId(User)
+            ).ToListAsync();
 
         }
     }

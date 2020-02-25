@@ -35,8 +35,9 @@ namespace Cache.Pages.Firearms
 
             var currentUserId = UserManager.GetUserId(User);
 
-            Firearm = await Context.Firearm.FirstOrDefaultAsync(
-                f => f.Id == id && f.UserId == currentUserId);
+            Firearm = await Context.Firearm.Where(
+                f => f.Id == id && f.UserId == UserManager.GetUserId(User)
+            ).FirstOrDefaultAsync();
 
             if (Firearm == null)
             {
@@ -55,6 +56,8 @@ namespace Cache.Pages.Firearms
             {
                 return Page();
             }
+
+            Firearm.UserId = UserManager.GetUserId(User);
 
             Context.Attach(Firearm).State = EntityState.Modified;
 
@@ -80,7 +83,9 @@ namespace Cache.Pages.Firearms
 
         private bool FirearmExists(int id)
         {
-            return Context.Firearm.Any(e => e.Id == id);
+            return Context.Firearm.Any(
+                f => f.Id == id && f.UserId == UserManager.GetUserId(User)
+            );
         }
     }
 }
