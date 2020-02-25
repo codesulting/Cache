@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cache.Data
 {
-    public class CacheContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
-        public CacheContext (
-            DbContextOptions<CacheContext> options)
+        public ApplicationDbContext (
+            DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }

@@ -2,21 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Cache.Data;
 using Cache.Models;
 
 namespace Cache.Pages.Firearms
 {
-    public class CreateModel : PageModel
+    public class CreateModel : BasePageModel
     {
-        private readonly Cache.Data.CacheContext _context;
 
-        public CreateModel(Cache.Data.CacheContext context)
+        public CreateModel(
+            ApplicationDbContext context,
+            UserManager<IdentityUser> userManager)
+            : base(context, userManager)
         {
-            _context = context;
         }
 
         public IActionResult OnGet()
@@ -31,15 +34,19 @@ namespace Cache.Pages.Firearms
         // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Firearm.Add(Firearm);
-            await _context.SaveChangesAsync();
+            Firearm.UserId = UserManager.GetUserId(User);
+
+            Context.Firearm.Add(Firearm);
+            await Context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+
         }
     }
 }

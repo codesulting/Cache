@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,13 +12,14 @@ using Cache.Models;
 
 namespace Cache.Pages.Firearms
 {
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
-        private readonly Cache.Data.CacheContext _context;
 
-        public EditModel(Cache.Data.CacheContext context)
+        public EditModel(
+            ApplicationDbContext context,
+            UserManager<IdentityUser> userManager)
+            : base(context, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -25,34 +27,40 @@ namespace Cache.Pages.Firearms
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            Firearm = await _context.Firearm.FirstOrDefaultAsync(m => m.Id == id);
+            var currentUserId = UserManager.GetUserId(User);
+
+            Firearm = await Context.Firearm.FirstOrDefaultAsync(
+                f => f.Id == id && f.UserId == currentUserId);
 
             if (Firearm == null)
             {
                 return NotFound();
             }
             return Page();
+
         }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Firearm).State = EntityState.Modified;
+            Context.Attach(Firearm).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -67,11 +75,12 @@ namespace Cache.Pages.Firearms
             }
 
             return RedirectToPage("./Index");
+
         }
 
         private bool FirearmExists(int id)
         {
-            return _context.Firearm.Any(e => e.Id == id);
+            return Context.Firearm.Any(e => e.Id == id);
         }
     }
 }

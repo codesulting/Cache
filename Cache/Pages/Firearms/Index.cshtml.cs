@@ -2,28 +2,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cache.Data;
 using Cache.Models;
 
 namespace Cache.Pages.Firearms
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
-        private readonly Cache.Data.CacheContext _context;
 
-        public IndexModel(Cache.Data.CacheContext context)
+        public IndexModel(
+            ApplicationDbContext context,
+            UserManager<IdentityUser> userManager)
+            : base(context, userManager)
         {
-            _context = context;
         }
 
-        public IList<Firearm> Firearm { get;set; }
+        public IList<Firearm> Firearm { get; set; }
 
         public async Task OnGetAsync()
         {
-            Firearm = await _context.Firearm.ToListAsync();
+
+            var currentUserId = UserManager.GetUserId(User);
+
+            Firearm = await Context.Firearm.Where(
+                f => f.UserId == currentUserId).ToListAsync();
+
         }
     }
 }

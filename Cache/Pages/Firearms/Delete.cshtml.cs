@@ -2,21 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cache.Data;
 using Cache.Models;
 
 namespace Cache.Pages.Firearms
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : BasePageModel
     {
-        private readonly Cache.Data.CacheContext _context;
 
-        public DeleteModel(Cache.Data.CacheContext context)
+        public DeleteModel(
+            ApplicationDbContext context,
+            UserManager<IdentityUser> userManager)
+            : base(context, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -24,36 +27,43 @@ namespace Cache.Pages.Firearms
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            Firearm = await _context.Firearm.FirstOrDefaultAsync(m => m.Id == id);
+            var currentUserId = UserManager.GetUserId(User);
+
+            Firearm = await Context.Firearm.Where(
+                f => f.UserId == currentUserId).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Firearm == null)
             {
                 return NotFound();
             }
             return Page();
+
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            Firearm = await _context.Firearm.FindAsync(id);
+            Firearm = await Context.Firearm.FindAsync(id);
 
             if (Firearm != null)
             {
-                _context.Firearm.Remove(Firearm);
-                await _context.SaveChangesAsync();
+                Context.Firearm.Remove(Firearm);
+                await Context.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");
+            
         }
     }
 }

@@ -32,12 +32,12 @@ namespace Cache
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CacheContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("CacheContext")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<CacheContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             IMvcBuilder builder = services.AddRazorPages();
 

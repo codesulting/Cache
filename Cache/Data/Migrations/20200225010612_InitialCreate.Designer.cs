@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cache.Data.Migrations
 {
-    [DbContext(typeof(CacheContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20200225010612_InitialCreate")]
     partial class InitialCreate
     {

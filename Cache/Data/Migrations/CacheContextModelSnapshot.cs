@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cache.Data.Migrations
 {
-    [DbContext(typeof(CacheContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class CacheContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -13,8 +13,8 @@ namespace Cache.Models
         public static async Task Initialize(IServiceProvider serviceProvider, string testUserPw)
         {
 
-            var context = new CacheContext(
-                serviceProvider.GetRequiredService<DbContextOptions<CacheContext>>());
+            var context = new ApplicationDbContext(
+                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>());
 
             var testUserId = await EnsureUser(serviceProvider, testUserPw, "admin@test.com");
 
@@ -48,7 +48,7 @@ namespace Cache.Models
 
         }
 
-        public static void SeedFirearms(CacheContext context, string testUserId)
+        public static void SeedFirearms(ApplicationDbContext context, string testUserId)
         {
 
             // Look for any firearms.
