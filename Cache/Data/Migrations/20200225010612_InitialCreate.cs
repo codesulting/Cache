@@ -11,8 +11,9 @@ namespace Cache.Data.Migrations
                 name: "Firearm",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(nullable: true),
                     ManufacturerImporter = table.Column<string>(nullable: false),
                     Model = table.Column<string>(nullable: false),
                     SerialNumber = table.Column<string>(nullable: false),
@@ -26,7 +27,7 @@ namespace Cache.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Firearm", x => x.ID);
+                    table.PrimaryKey("PK_Firearm", x => x.Id);
                 });
         }
 

@@ -8,6 +8,8 @@ namespace Cache.Models
     {
         public int Id { get; set; }
 
+        public string UserId { get; set; }
+
         [Required,
         Display(Name = "Manufacturer/Importer")]
         public string ManufacturerImporter { get; set; }

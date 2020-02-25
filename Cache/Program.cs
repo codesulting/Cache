@@ -23,7 +23,12 @@ namespace Cache
 
                 try
                 {
-                    SeedData.Initialize(services);
+                    // requires using Microsoft.Extensions.Configuration;
+                    var config = host.Services.GetRequiredService<IConfiguration>();
+                    // Set password with the Secret Manager tool.
+                    // dotnet user-secrets set SeedUserPW <pw>
+                    var testUserPw = config["SeedUserPW"];
+                    SeedData.Initialize(services, testUserPw).Wait();
                 }
                 catch (Exception ex)
                 {

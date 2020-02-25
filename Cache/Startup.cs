@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,20 +36,29 @@ namespace Cache
                 options.UseSqlite(Configuration.GetConnectionString("CacheContext")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<CacheContext>();
 
             IMvcBuilder builder = services.AddRazorPages();
 
             builder.AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AddPageRoute("/Firearms/Index", "");
-                });
+            {
+                options.Conventions.AddPageRoute("/Firearms/Index", "");
+            });
 #if DEBUG
             if (Environment.IsDevelopment())
             {
                 builder.AddRazorRuntimeCompilation();
             }
 #endif
+
+            services.AddControllers(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
